@@ -1,13 +1,12 @@
 import csv
 from lib2to3.pgen2 import driver
 
-CSV_FILE = 'rides.csv'
-DRIVER_QUESTION = "DRIVERS ONLY - If you're a driver, please indicate how many students you can carry"
+RIDER_CSV_FILE = 'riders.csv'
+DRIVER_CSV_FILE = 'drivers.csv'
 
-
-def readCSVFile():
+def readRidersCSVFile(csvFileName):
     userInformation = []
-    with open(CSV_FILE, newline='') as csvfile:
+    with open(csvFileName, newline='') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
             userInformation.append(row)
@@ -24,10 +23,15 @@ def addDrivers(category, driverDict, user):
             user["Name"])
     else:
         # otherwise create a new event
-        eventDictionary = {}
-        eventDictionary[user[category]
-                        ] = [user["Name"]+"," + user[DRIVER_QUESTION]]
-        driverDict[category] = eventDictionary
+        subTimes = [user[category]]
+        if "," in user[category]:
+            subTimes = user[category].split(",")
+        for subTime in subTimes:
+            #print(subTime)
+            eventDictionary = {}
+            eventDictionary[subTime
+                            ] = [user["Name"]+"," + user['What is your carry capacity?']]
+            driverDict[category] = eventDictionary
 
 
 def addRiders(category, ridersDict, user):
@@ -43,36 +47,39 @@ def addRiders(category, ridersDict, user):
         # otherwise create a new event
         eventDictionary = {}
         eventDictionary[user[category]
-                        ] = [user["Name"]+"," + user[DRIVER_QUESTION]]
+                        ] = [user["Name"]]
         ridersDict[category] = eventDictionary
 
 
-def compileDictionary(userInformation, ridersDict, driverDict):
+def compileDictionary(userInformation, typeDict):
     for user in userInformation:
 
         for category in user:
             # print(driverDict)
 
-            if category == 'Timestamp' or category == 'Email Address' or category == 'Name' or category == DRIVER_QUESTION:
+            if category == 'Timestamp' or category == 'Email Address' or category == 'Name' or category == 'What is your carry capacity?':
                 continue
-            if user[DRIVER_QUESTION] != '':
+            if 'What is your carry capacity?' in user:
                 # Drivers
-                addDrivers(category, driverDict, user)
+                addDrivers(category, typeDict, user)
             else:
                 # Riders
-                addRiders(category, ridersDict, user)
+                addRiders(category, typeDict, user)
 
 
 def lambda_handler():
-    userInformation = readCSVFile()
-    userDict = {}
+    riderInformation = readRidersCSVFile(RIDER_CSV_FILE)
+    driverInformation = readRidersCSVFile(DRIVER_CSV_FILE)
     driverDict = {}
     riderDict = {}
+
+    print(driverInformation)
+
     #print(userInformation)
-    compileDictionary(userInformation, userDict, driverDict)
-    print(driverDict)
-    compileDictionary(userInformation, riderDict, driverDict)
-    print(userDict)
+    compileDictionary(driverInformation, driverDict)
+    #print(driverDict)
+    compileDictionary(riderInformation, riderDict)
+    #print(riderDict)
 
 
 if __name__ == '__main__':
