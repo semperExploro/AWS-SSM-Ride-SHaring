@@ -24,23 +24,23 @@ def addDrivers(category, driverDict, user):
         for subTimes in user[category]:
             if subTimes not in driverDict[category]:
                 # create a new subTime if none exists
-                driverDict[category][subTimes] = [user["Name"] +
-                                                  "," + user['What is your carry capacity?']]
+                driverDict[category][subTimes] = [
+                    (user["Name"], user['What is your carry capacity?'])]
             else:
                 # append to existing subTime
-                driverDict[category][subTimes].append(
-                    user["Name"] + "," + user['What is your carry capacity?'])
+                driverDict[category][subTimes].append((
+                    user["Name"], user['What is your carry capacity?']))
     else:
         # If category doesn't exists
         subTimeDict = {}
         for subTimes in user[category]:
             subTimeDict[subTimes] = [
-                (user["Name"] + "," + user['What is your carry capacity?'])]
+                (user["Name"], user['What is your carry capacity?'])]
         driverDict[category] = subTimeDict
 
 
 def addRiders(category, ridersDict, user):
-    #print(user)
+    # print(user)
     if (user[category] == 'Not Going'):
         dud = 0
     elif category not in ridersDict:
@@ -48,12 +48,12 @@ def addRiders(category, ridersDict, user):
         entry = {}
         entry[user[category]] = [user["Name"]]
         ridersDict[category] = entry
-        #print(ridersDict)
+        # print(ridersDict)
     elif user[category] not in ridersDict[category]:
         ridersDict[category][user[category]] = [user["Name"]]
     else:
         ridersDict[category][user[category]].append(user["Name"])
-  
+
 
 def compileDictionary(userInformation, typeDict):
     for user in userInformation:
