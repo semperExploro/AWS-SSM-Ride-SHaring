@@ -80,4 +80,4 @@ The program works by prioritizing drivers to times that have the highest demand.
 # Flow
 
 ---
-![alt text](https://https://github.com/semperExploro/AWS-SSM-Ride-Sharing/blob/master/AWS%20SSM%20Workflow.png
+![alt text](https://github.com/semperExploro/AWS-SSM-Ride-Sharing/blob/62ea160ee38036259330b373321e268ec07d93e5/AWS%20SSM%20Workflow.png)
