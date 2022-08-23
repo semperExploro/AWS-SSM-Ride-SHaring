@@ -2,6 +2,14 @@
 
 This program provides automatic ride sharing coordination for Stepping Stone Ministry at Johns Hopkins University 
 
+# How to Run
+
+--- 
+
+If desiring to run on AWS, utilize the files in the folder `AWS Deployment`
+If desiring to run locally on a machine, utilze the files in the folder `Local Deployment`
+
+
 # Guidance for Google Forms
 
 ---
@@ -81,3 +89,4 @@ The program works by prioritizing drivers to times that have the highest demand.
 
 ---
 ![alt text](https://github.com/semperExploro/AWS-SSM-Ride-Sharing/blob/62ea160ee38036259330b373321e268ec07d93e5/AWS%20SSM%20Workflow.png)
+
