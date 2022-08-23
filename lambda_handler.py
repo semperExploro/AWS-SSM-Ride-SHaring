@@ -1,5 +1,7 @@
+from email import header
 from extraction import*
 from assignments import* 
+from parseToCsv import*
 
 def lambda_handler():
     #Extract Information
@@ -13,18 +15,20 @@ def lambda_handler():
     sortDriversCapacity(driverDict)
     compileDictionary(riderInformation, riderDict)
     
-    #print(driverDict)
     #Configure for Ride Assignment
     masterRides, masterCount = getMasterRidesList(riderDict)
-    #print("Master Rides")
-    #print(masterRides)
-    #print("Master Count")
-    #print(masterCount)
-    #print("Driver Dictionary")
-    #print(driverDict)
-
     finalList = assignRidersToDrivers(masterRides,masterCount,driverDict)
-    print(finalList)
+
+
+
+    #Print to CSV
+    headers = getCSVHeaders()[0]
+    del headers[0:3]
+    morning = headers[0:int(len(headers)/2)]
+    afternoon = headers[int(len(headers)/2):len(headers)]
+   
+    convertDictToCSV(finalList,morning,afternoon)
+
 
 if __name__ == '__main__':
     lambda_handler()

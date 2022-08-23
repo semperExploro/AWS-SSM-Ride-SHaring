@@ -89,10 +89,6 @@ def assignRidersToDrivers(masterRide, masterCount, driverDict):
 
 
 def uberConfig(masterCount,date,finalList,masterRide):
-    #print("final list ")
-    #print(finalList)
-    #print("master count")
-    #print(masterCount)
     if date in finalList:
         #if there's already existing ubers
         if(masterCount[date]>4):

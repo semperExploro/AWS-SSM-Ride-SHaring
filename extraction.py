@@ -4,6 +4,26 @@ import csv
 RIDER_CSV_FILE = 'riders.csv'
 DRIVER_CSV_FILE = 'drivers.csv'
 
+def getCSVHeaders():
+    with open(RIDER_CSV_FILE) as csv_file:
+
+        # creating an object of csv reader
+        # with the delimiter as ,
+        csv_reader = csv.reader(csv_file, delimiter = ',')
+    
+        # list to store the names of columns
+        list_of_column_names = []
+    
+        # loop to iterate through the rows of csv
+        for row in csv_reader:
+    
+            # adding the first row
+            list_of_column_names.append(row)
+    
+            # breaking the loop after the
+            # first iteration itself
+            break
+        return list_of_column_names
 
 def readRidersCSVFile(csvFileName):
     userInformation = []
