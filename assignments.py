@@ -26,22 +26,12 @@ def sortDriversCapacity(driverDict):
             driverDict[date][subTime] = sortedDriverSets
 
 def assignRidersToDrivers(masterRide, masterCount, driverDict):
-    print(driverDict)
-
     finalList = {}
     while(len(masterCount)!=0):
         masterCount = dict(sortDictionaryByValue(masterCount))
-        #obtain the date with the highest demand
-       # print("NEW CYCLE")
-       # print("new cycle")
-       # print(masterCount)
-       # print("masterride dict")
-       # print(masterRide)
-        #obtain the last element (largest)
         date = list(masterCount.items())[-1][0]
         day = date.split(",")[0]
         time = date.split(",")[1]
-        print("Date "+str(date))
         if(day not in driverDict or time not in driverDict[day]):
             #UBER - the day or the day and time cannot be find 
             uberConfig(masterCount,date,finalList,masterRide)
@@ -89,9 +79,6 @@ def assignRidersToDrivers(masterRide, masterCount, driverDict):
 
 def removeDriver(driverDict,day,driverData):
     for sets in list(driverDict[day].keys()):
-        print(sets)
-        print(driverDict[day][sets])
-        print(driverData)
         if driverData in driverDict[day][sets]:
             driverDict[day][sets].remove(driverData)
         if(len(driverDict[day][sets]) == 0):

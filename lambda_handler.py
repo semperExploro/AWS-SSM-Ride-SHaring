@@ -7,7 +7,7 @@ def lambda_handler():
     #Extract Information
     riderInformation = readRidersCSVFile(RIDER_CSV_FILE)
     driverInformation = readRidersCSVFile(DRIVER_CSV_FILE)
-    #print(driverInformation)
+    
     #Assign Riders to Dictionaries
     driverDict = {}
     riderDict = {}

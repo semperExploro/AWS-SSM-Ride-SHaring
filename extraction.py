@@ -60,15 +60,12 @@ def addDrivers(category, driverDict, user):
 
 
 def addRiders(category, ridersDict, user):
-    # print(user)
     if (user[category] == 'Not Going'):
         dud = 0
     elif category not in ridersDict:
-        #print("Category not added "+category)
         entry = {}
         entry[user[category]] = [user["Name"]]
         ridersDict[category] = entry
-        # print(ridersDict)
     elif user[category] not in ridersDict[category]:
         ridersDict[category][user[category]] = [user["Name"]]
     else:
@@ -90,4 +87,3 @@ def compileDictionary(userInformation, typeDict):
                 # Riders
                 addRiders(category, typeDict, user)
 
-        # print(user)

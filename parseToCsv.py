@@ -9,7 +9,6 @@ def parseString(dict, eraMarker, alpha, date, riders, drivers):
         individualDate = date+","+marker
         if individualDate not in dict:
             continue
-        # print(dict[individualDate])
         for array in dict[individualDate]:
             alpha = alpha + individualDate.replace(",", "-")+","
             drivers = drivers + array[1]+","
@@ -39,24 +38,15 @@ def writeToCSV(dateLine, drivers, riders,COUNTER):
     file.write(drivers+"\n")
     index = 0
     count = getLengthAllElements(riders)
-    #print(count)
     max = getMax(riders)
-    #print("max "+str(max))
-    #print(len(riders))
     while (count != 0):
-
         line = ""
         for car in range(max):
-            #print("car " +str(car)+"\tIndex"+str(index)+"\t Count "+str(count))
-            #print(car)
-            #print(riders[car])
             if index > len(riders[car])-1:
                 line = line + ","
             else:
                 line = line + riders[car][index] + ","
                 count = count - 1
-            #print(riders[car])
-            #print("Count "+str(count))
         file.write(line+"\n")
         index = index+1
 
@@ -69,8 +59,6 @@ def convertDictToCSV(dict, morning, afternoon):
     earlyMarker = [EARLY_MORNING_MARKER, MORNING_NORMAL_MARKER]
     lateMarker = [AFTER_SERVICE_MARKER, AFTER_LUNCH_MARKER]
     COUNTER = 0
-    # print(dict)
-
     for i in range(len(morning)):
         dateLine = ""
         drivers = ""
@@ -82,8 +70,4 @@ def convertDictToCSV(dict, morning, afternoon):
         date = afternoon[i]
         dateLine, riders, drivers = parseString(
             dict, lateMarker, dateLine, date, riders, drivers)
-
-        #print(dateLine)
-        #print(drivers)
-        #print(riders)
         COUNTER = writeToCSV(dateLine,drivers,riders,COUNTER)
