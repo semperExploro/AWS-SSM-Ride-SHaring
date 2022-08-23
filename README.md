@@ -7,6 +7,7 @@ This program provides automatic ride sharing coordination for Stepping Stone Min
 --- 
 
 If desiring to run on AWS, utilize the files in the folder `AWS Deployment`
+
 If desiring to run locally on a machine, utilze the files in the folder `Local Deployment`
 
 
