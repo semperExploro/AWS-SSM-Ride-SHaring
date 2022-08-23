@@ -1,36 +1,39 @@
 import csv
+import boto3
 
 
 RIDER_CSV_FILE = 'riders.csv'
 DRIVER_CSV_FILE = 'drivers.csv'
+BUCKET_NAME = 'bucket-name'
 
-def getCSVHeaders():
-    with open(RIDER_CSV_FILE) as csv_file:
+def getCSV(key):
+    bucket = BUCKET_NAME
+    s3_resource = boto3.resource('s3')
+    s3_object = s3_resource.Object(bucket, key)
+    data = s3_object.get()['Body'].read().decode('utf-8').splitlines()
+    lines = csv.reader(data)
+    return lines
 
-        # creating an object of csv reader
-        # with the delimiter as ,
-        csv_reader = csv.reader(csv_file, delimiter = ',')
-    
-        # list to store the names of columns
-        list_of_column_names = []
-    
-        # loop to iterate through the rows of csv
-        for row in csv_reader:
-    
-            # adding the first row
-            list_of_column_names.append(row)
-    
-            # breaking the loop after the
-            # first iteration itself
-            break
-        return list_of_column_names
+def getCSVHeaders(fileName):
 
-def readRidersCSVFile(csvFileName):
+    # creating an object of csv reader
+    # with the delimiter as ,
+    csv_reader = getCSV(fileName)
+    list_of_column_names = next(csv_reader)
+    return list_of_column_names
+
+def readRidersCSVFile(csvFileName,headers):
+    print(headers)
     userInformation = []
-    with open(csvFileName, newline='') as csvfile:
-        reader = csv.DictReader(csvfile)
-        for row in reader:
-            userInformation.append(row)
+    csv_reader = getCSV(csvFileName)
+    for line in csv_reader:
+        if line ==headers:
+            continue
+        dict = {}
+        for i in range(len(line)):
+            dict[headers[i]]=line[i]
+        userInformation.append(dict)
+    print(userInformation)
     return userInformation
 
 
@@ -86,3 +89,4 @@ def compileDictionary(userInformation, typeDict):
             else:
                 # Riders
                 addRiders(category, typeDict, user)
+

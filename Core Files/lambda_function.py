@@ -3,11 +3,15 @@ from extraction import*
 from assignments import* 
 from parseToCsv import*
 
-def lambda_handler():
+
+
+
+
+def lambda_handler(event,context):
     #Extract Information
     riderInformation = readRidersCSVFile(RIDER_CSV_FILE)
     driverInformation = readRidersCSVFile(DRIVER_CSV_FILE)
-    
+    print(riderInformation)
     #Assign Riders to Dictionaries
     driverDict = {}
     riderDict = {}
@@ -23,7 +27,6 @@ def lambda_handler():
 
     #Print to CSV
     headers = getCSVHeaders()[0]
-    del headers[0:3]
     morning = headers[0:int(len(headers)/2)]
     afternoon = headers[int(len(headers)/2):len(headers)]
    
@@ -31,4 +34,4 @@ def lambda_handler():
 
 
 if __name__ == '__main__':
-    lambda_handler()
+    lambda_handler("bob","shmo")
