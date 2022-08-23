@@ -35,7 +35,7 @@ def getMax(array):
     if list[len(list)-1] < len(array):
         return len(array)
     else: 
-        return len(list[len(list)-1])
+        return (list[len(list)-1])
 
 def writeToCSV(dateLine, drivers, riders,COUNTER):
     file = open("rides "+str(COUNTER)+".csv", "w")
@@ -52,9 +52,6 @@ def writeToCSV(dateLine, drivers, riders,COUNTER):
             break
         line = ""
         for car in range(max):
-            if car > len(riders):
-                print("tirggered")
-                continue
             print("car " +str(car)+"\tIndex"+str(index)+"\t Count "+str(count))
             #print(car)
             print(riders[car])
@@ -70,6 +67,7 @@ def writeToCSV(dateLine, drivers, riders,COUNTER):
 
     file.close()
     COUNTER = COUNTER + 1
+    return COUNTER
 
 
 def convertDictToCSV(dict, morning, afternoon):
@@ -78,7 +76,7 @@ def convertDictToCSV(dict, morning, afternoon):
     COUNTER = 0
     # print(dict)
 
-    for i in range(1):
+    for i in range(len(morning)):
         dateLine = ""
         drivers = ""
         riders = []
@@ -93,4 +91,4 @@ def convertDictToCSV(dict, morning, afternoon):
         print(dateLine)
         print(drivers)
         print(riders)
-        writeToCSV(dateLine,drivers,riders,COUNTER)
+        COUNTER = writeToCSV(dateLine,drivers,riders,COUNTER)
