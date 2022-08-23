@@ -1,7 +1,3 @@
-from sqlite3 import DataError
-from tkinter import E
-
-
 EARLY_MORNING_MARKER = "Early - 8:10 AM"
 MORNING_NORMAL_MARKER = "Normal - 8:50 AM"
 AFTER_SERVICE_MARKER = "After service - 11:00 PM"
