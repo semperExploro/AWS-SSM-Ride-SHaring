@@ -39,18 +39,17 @@ def writeToCSV(dateLine, drivers, riders,COUNTER):
     file.write(drivers+"\n")
     index = 0
     count = getLengthAllElements(riders)
-    print(count)
+    #print(count)
     max = getMax(riders)
-    print("max "+str(max))
-    print(len(riders))
+    #print("max "+str(max))
+    #print(len(riders))
     while (count != 0):
-        if index > 10:
-            break
+
         line = ""
         for car in range(max):
-            print("car " +str(car)+"\tIndex"+str(index)+"\t Count "+str(count))
+            #print("car " +str(car)+"\tIndex"+str(index)+"\t Count "+str(count))
             #print(car)
-            print(riders[car])
+            #print(riders[car])
             if index > len(riders[car])-1:
                 line = line + ","
             else:
@@ -84,7 +83,7 @@ def convertDictToCSV(dict, morning, afternoon):
         dateLine, riders, drivers = parseString(
             dict, lateMarker, dateLine, date, riders, drivers)
 
-        print(dateLine)
-        print(drivers)
-        print(riders)
+        #print(dateLine)
+        #print(drivers)
+        #print(riders)
         COUNTER = writeToCSV(dateLine,drivers,riders,COUNTER)

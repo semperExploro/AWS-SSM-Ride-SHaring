@@ -26,6 +26,8 @@ def sortDriversCapacity(driverDict):
             driverDict[date][subTime] = sortedDriverSets
 
 def assignRidersToDrivers(masterRide, masterCount, driverDict):
+    print(driverDict)
+
     finalList = {}
     while(len(masterCount)!=0):
         masterCount = dict(sortDictionaryByValue(masterCount))
@@ -39,6 +41,7 @@ def assignRidersToDrivers(masterRide, masterCount, driverDict):
         date = list(masterCount.items())[-1][0]
         day = date.split(",")[0]
         time = date.split(",")[1]
+        print("Date "+str(date))
         if(day not in driverDict or time not in driverDict[day]):
             #UBER - the day or the day and time cannot be find 
             uberConfig(masterCount,date,finalList,masterRide)
@@ -74,18 +77,28 @@ def assignRidersToDrivers(masterRide, masterCount, driverDict):
                     finalList[date]=[((masterRide[date][0:len(masterRide[date])]),driverName)]
                     masterCount[date] = masterCount[date]-len(masterRide[date])
                     del masterRide[date][0:len(masterRide[date])]
-            driverDict[day][time].remove(driverData)
-   
-            if(len(driverDict[day][time]) == 0):
-                del driverDict[day][time]
-            if(len(driverDict[day])==0):
-                del driverDict[day]
+            #driverDict[day][time].remove(driverData)
+            removeDriver(driverDict,day,driverData)
+
         #delete empty dates
         if((masterCount[date])==0):
             masterCount.pop(date,None)
         if(len(masterRide[date])==0):
             masterRide.pop(date,None)
     return finalList
+
+def removeDriver(driverDict,day,driverData):
+    for sets in list(driverDict[day].keys()):
+        print(sets)
+        print(driverDict[day][sets])
+        print(driverData)
+        if driverData in driverDict[day][sets]:
+            driverDict[day][sets].remove(driverData)
+        if(len(driverDict[day][sets]) == 0):
+            del driverDict[day][sets]
+    if(len(driverDict[day])==0):
+        del driverDict[day]
+
 
 
 def uberConfig(masterCount,date,finalList,masterRide):
