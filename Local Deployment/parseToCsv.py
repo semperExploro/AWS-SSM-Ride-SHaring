@@ -40,6 +40,9 @@ def writeToCSV(dateLine, drivers, riders,COUNTER):
     count = getLengthAllElements(riders)
     max = getMax(riders)
     while (count != 0):
+        #For safety assurances:
+        if( index > 100):
+            raise ValueError("Index tresspasses legal threshold for car size")
         line = ""
         for car in range(max):
             if index > len(riders[car])-1:
