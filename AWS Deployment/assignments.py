@@ -25,7 +25,10 @@ def sortDriversCapacity(driverDict):
 
 def assignRidersToDrivers(masterRide, masterCount, driverDict):
     finalList = {}
+    safetyCount = 0
     while(len(masterCount)!=0):
+        if safetyCount > 500:
+            raise ValueError("Number of people exceeded realistic amount")
         masterCount = dict(sortDictionaryByValue(masterCount))
         date = list(masterCount.items())[-1][0]
         day = date.split(",")[0]

@@ -43,6 +43,8 @@ def writeToCSV(dateLine, drivers, riders,COUNTER):
     max = getMax(riders)
     fullLine = dateLine+"\n"+drivers+"\n"
     while (count != 0):
+        if index > 100:
+            raise ValueError("Index passes realistic amount for number of occupants for a car")
         line = ""
         for car in range(max):
             if index > len(riders[car])-1:
