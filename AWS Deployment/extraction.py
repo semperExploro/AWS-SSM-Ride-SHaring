@@ -4,7 +4,7 @@ import boto3
 
 RIDER_CSV_FILE = 'riders.csv'
 DRIVER_CSV_FILE = 'drivers.csv'
-BUCKET_NAME = 'bucket-name'
+BUCKET_NAME = 'ssm-ride-uploads'
 
 def getCSV(key):
     bucket = BUCKET_NAME
@@ -23,7 +23,6 @@ def getCSVHeaders(fileName):
     return list_of_column_names
 
 def readRidersCSVFile(csvFileName,headers):
-    print(headers)
     userInformation = []
     csv_reader = getCSV(csvFileName)
     for line in csv_reader:
@@ -33,8 +32,6 @@ def readRidersCSVFile(csvFileName,headers):
         for i in range(len(line)):
             dict[headers[i]]=line[i]
         userInformation.append(dict)
-    print(userInformation)
-    return userInformation
 
 
 def addDrivers(category, driverDict, user):

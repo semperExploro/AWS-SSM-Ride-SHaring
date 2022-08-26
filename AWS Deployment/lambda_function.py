@@ -5,13 +5,16 @@ from parseToCsv import*
 
 
 
-
-
 def lambda_handler(event,context):
     #Extract Information
-    riderInformation = readRidersCSVFile(RIDER_CSV_FILE)
-    driverInformation = readRidersCSVFile(DRIVER_CSV_FILE)
-    print(riderInformation)
+    riderHeaders = getCSVHeaders(RIDER_CSV_FILE)
+    driverHeaders = getCSVHeaders(DRIVER_CSV_FILE)
+    riderInformation = readRidersCSVFile(RIDER_CSV_FILE,riderHeaders)
+    driverInformation = readRidersCSVFile(DRIVER_CSV_FILE,driverHeaders)
+    
+    headers = riderHeaders
+    del headers[0:3]
+
     #Assign Riders to Dictionaries
     driverDict = {}
     riderDict = {}
@@ -23,10 +26,7 @@ def lambda_handler(event,context):
     masterRides, masterCount = getMasterRidesList(riderDict)
     finalList = assignRidersToDrivers(masterRides,masterCount,driverDict)
 
-
-
     #Print to CSV
-    headers = getCSVHeaders()[0]
     morning = headers[0:int(len(headers)/2)]
     afternoon = headers[int(len(headers)/2):len(headers)]
    
@@ -34,4 +34,4 @@ def lambda_handler(event,context):
 
 
 if __name__ == '__main__':
-    lambda_handler("bob","shmo")
+    lambda_handler()
