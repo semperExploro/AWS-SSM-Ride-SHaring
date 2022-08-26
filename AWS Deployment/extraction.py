@@ -32,6 +32,7 @@ def readRidersCSVFile(csvFileName,headers):
         for i in range(len(line)):
             dict[headers[i]]=line[i]
         userInformation.append(dict)
+    return userInformation
 
 
 def addDrivers(category, driverDict, user):
